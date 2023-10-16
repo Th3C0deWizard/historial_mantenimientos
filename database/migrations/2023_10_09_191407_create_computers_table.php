@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('owner')
                 ->references('id')
                 ->on('users')
-                ->nullOnDelete()->cascadeOnUpdate();
+                ->restrictOnDelete()->cascadeOnUpdate();
         });
     }
 

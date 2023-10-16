@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Computer::class, 'owner');
     }
+
+    public function observations(): HasMany
+    {
+        return $this->hasMany(Observation::class, 'created_by');
+    }
 }
