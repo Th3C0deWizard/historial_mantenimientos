@@ -15,12 +15,13 @@ class Computer extends Model
         'name',
         'brand',
         'ram',
-        'cpu'
+        'cpu',
+        'registered_by'
     ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner');
+        return $this->belongsTo(User::class, 'registered_by');
     }
 
     public function observations(): HasMany

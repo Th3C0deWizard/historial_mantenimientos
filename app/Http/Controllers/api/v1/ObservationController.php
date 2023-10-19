@@ -11,18 +11,25 @@ class ObservationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $user)
     {
-        $observations = Observation::orderBy('created_at', 'desc')->get();
+        $observations = Observation::where('created_by', $user)->orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $observations], 200);
+    }
+
+    public function indexComputerObservations(string $computer)
+    {
+
+        $observations = Observation::where('computer_id', $computer)->orderBy('created_at', 'desc')->get();
         return response()->json(['data' => $observations], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(string $user, Request $request)
     {
-        $observation = Observation::create($request->all());
+        $observation = Observation::create([...$request->all(), 'created_by' => $user]);
         return response()->json(['data' => $observation], 201);
     }
 
@@ -31,6 +38,12 @@ class ObservationController extends Controller
      */
     public function show(Observation $observation)
     {
+        return response()->json(['data' => $observation], 200);
+    }
+
+    public function showComputerObservation(string $computer, string $observation)
+    {
+        $observation = Observation::where('computer_id', $computer)->where('id', $observation)->firstOrFail();
         return response()->json(['data' => $observation], 200);
     }
 

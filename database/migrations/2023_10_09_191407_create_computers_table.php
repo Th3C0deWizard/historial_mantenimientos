@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('brand', 50);
             $table->integer('ram');
             $table->string('cpu', 30);
-            $table->foreignId('owner')->nullable();
+            $table->foreignId('registered_by')->nullable();
             $table->timestamps();
-            $table->foreign('owner')
+            $table->foreign('registered_by')
                 ->references('id')
                 ->on('users')
                 ->restrictOnDelete()->cascadeOnUpdate();

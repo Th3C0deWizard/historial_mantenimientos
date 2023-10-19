@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('observations', function (Blueprint $table) {
             $table->id();
             $table->string('message', 255);
-            $table->foreignId('category_id')->references('id')
+            $table->foreignId('category_id')->nullable()->references('id')
                 ->on('categories')->nullOnDelete()->cascadeOnUpdate();
             $table->foreignId('created_by')->references('id')
                 ->on('users')->restrictOnDelete()->cascadeOnUpdate();

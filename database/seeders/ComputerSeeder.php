@@ -20,7 +20,7 @@ class ComputerSeeder extends Seeder
             'brand' => 'Asus',
             'ram' => 16,
             'cpu' => 'Intel i5',
-            'owner' => 1
+            'registered_by' => 1
         ]);
 
         Computer::create([
@@ -28,7 +28,7 @@ class ComputerSeeder extends Seeder
             'brand' => 'HP',
             'ram' => 32,
             'cpu' => 'Intel i7',
-            'owner' => 1
+            'registered_by' => 1
         ]);
 
         Computer::create([
@@ -36,7 +36,7 @@ class ComputerSeeder extends Seeder
             'brand' => 'Lenovo',
             'ram' => 8,
             'cpu' => 'AMD Ryzen 7',
-            'owner' => 1
+            'registered_by' => 1
         ]);
 
 

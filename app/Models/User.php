@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function computers(): HasMany
     {
-        return $this->hasMany(Computer::class, 'owner');
+        return $this->hasMany(Computer::class, 'registered_by');
     }
 
     public function observations(): HasMany

@@ -8,26 +8,24 @@ use Illuminate\Http\Request;
 
 class ComputerController extends Controller
 {
-    public function list()
-    {
-        $computers = Computer::all();
-        return $computers;
-    }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $computers = Computer::all();
+        return response()->json(['data' => $computers]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $user)
     {
-        //
+        $computer = Computer::create([...$request->all(), 'registered_by' => $user]);
+        $computer->registered_by = "api/v1/users/{$user}";
+        return response()->json(['data' => $computer], 201);
     }
 
     /**
@@ -35,7 +33,7 @@ class ComputerController extends Controller
      */
     public function show(Computer $computer)
     {
-        //
+        return response()->json(['data' => $computer]);
     }
 
     /**
@@ -43,7 +41,8 @@ class ComputerController extends Controller
      */
     public function update(Request $request, Computer $computer)
     {
-        //
+        $computer->update($request->all());
+        return response()->json(['data' => $computer]);
     }
 
     /**
@@ -51,6 +50,7 @@ class ComputerController extends Controller
      */
     public function destroy(Computer $computer)
     {
-        //
+        $computer->delete();
+        return response()->json(['message' => 'Computer deleted successfully']);
     }
 }
