@@ -12,7 +12,9 @@ class Observation extends Model
 
     protected $fillable = [
         'category_id',
-        'message'
+        'message',
+        'created_by',
+        'computer_id'
     ];
 
     public function category(): BelongsTo

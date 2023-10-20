@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        return response()->json(['message' => "No se puede editar una categoria"], 200);
+        return response()->json(['message' => "You can't edit a category"], 200);
     }
 
     /**
@@ -48,6 +48,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return response(null, 204);
+        return response()->json(['message' => "Category deleted succesfully"], 200);
     }
 }

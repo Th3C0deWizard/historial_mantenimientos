@@ -27,7 +27,7 @@ class ObservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $user, Request $request)
+    public function store(Request $request, string $user)
     {
         $observation = Observation::create([...$request->all(), 'created_by' => $user]);
         return response()->json(['data' => $observation], 201);
@@ -36,8 +36,9 @@ class ObservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Observation $observation)
+    public function show(string $user, string $observation)
     {
+        $observation = Observation::where('created_by', $user)->where('id', $observation)->firstOrFail();
         return response()->json(['data' => $observation], 200);
     }
 
@@ -62,6 +63,6 @@ class ObservationController extends Controller
     public function destroy(Observation $observation)
     {
         $observation->delete();
-        return response(null, 204);
+        return response()->json(['message' => 'Observation deleted succesfully'], 204);
     }
 }
