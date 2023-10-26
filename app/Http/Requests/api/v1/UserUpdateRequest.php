@@ -4,7 +4,7 @@ namespace App\Http\Requests\api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|string|alpha_dash:ascii|max:80|min:7|unique:users,username',
-            'email' => 'required|email|min:8|max:255|unique:users,email',
-            'password' => 'required|string|min:8|max:255',
+            'username' => 'string|alpha_dash:ascii|max:80|min:7|unique:users,username',
+            'email' => 'email|min:8|max:255|unique:users,email',
+            'password' => 'missing',
         ];
     }
 
@@ -41,10 +41,7 @@ class UserStoreRequest extends FormRequest
             'email.min' => 'El correo electronico debe contener al menos 8 caracteres',
             'email.max' => 'El correo electronico debe contener menos de 255 caracteres',
             'email.unique' => 'El correo electronico ya esta en uso',
-            'password.required' => 'La contraseña es requerida',
-            'password.string' => 'La contraseña debe ser una cadena de caracteres',
-            'password.min' => 'La contraseña debe contener al menos 8 caracteres',
-            'password.max' => 'La contraseña debe contener menos de 255 caracteres',
+            'password.missing' => 'La contraseña no puede ser actualizada desde este recurso',
         ];
     }
 }
