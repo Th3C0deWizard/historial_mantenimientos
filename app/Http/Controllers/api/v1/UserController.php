@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Http\Requests\api\v1\UserStoreRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\v1\UserUpdateRequest;
+use App\Http\Resources\qpi\v1\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,13 +17,13 @@ class UserController extends Controller
     {
         //
         $users = User::orderBy('username', 'asc')->get();
-        return response()->json(['data' => $users], 200);
+        return response()->json(['data' => UserResource::collection($users)], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
         $user = User::create($request->all());
         return response()->json(['data' => $user], 201);
@@ -32,14 +34,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
-        return response()->json(['data' => $user], 200);
+        return response()->json(['data' => new UserResource($user)], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->all());
         return response()->json(['data' => $user], 200);
