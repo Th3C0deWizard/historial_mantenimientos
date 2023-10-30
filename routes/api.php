@@ -16,7 +16,7 @@ use App\Http\Controllers\api\v1;
 */
 
 // Users Routes
-Route::post('v1/users', [v1\UserController::class, 'store']);
+Route::post('v1/register', [v1\UserController::class, 'store']);
 
 // Computers Routes
 Route::apiResource('v1/computers', v1\ComputerController::class)
@@ -33,8 +33,11 @@ Route::post('/v1/login', [App\Http\Controllers\api\v1\AuthController::class, 'lo
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Users Routes
-    Route::apiResource('v1/users', v1\UserController::class)
-        ->except(['store']);
+    Route::get('v1/users', [v1\UserController::class, 'index']);
+    Route::get('v1/profile', [v1\UserController::class, 'show']);
+    Route::put('v1/profile', [v1\UserController::class, 'update']);
+    Route::delete('v1/profile', [v1\UserController::class, 'destroy']);
+    Route::put('v1/profile/changePassword', [v1\UserController::class, 'changePassword']);
 
     // Computers Routes
     Route::put('v1/computers/{computer}', [v1\ComputerController::class, 'update']);
@@ -43,7 +46,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Observations Routes
     Route::apiResource('v1/users.observations', v1\ObservationController::class)
-        ->only(['index', 'store', 'show']);
+        ->only(['index', 'show']);
+    Route::post('v1/computers/{computer}/observations', [v1\ObservationController::class, 'store']);
     Route::apiResource('v1/observations', v1\ObservationController::class)
         ->only(['update', 'destroy']);
 
