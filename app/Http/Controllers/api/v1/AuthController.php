@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 21ab92851d93bc9ce0e562807f27aaea50be0619
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -46,4 +50,15 @@ class AuthController extends Controller
             'type' => $tokenType
         ], 200);
     }
+<<<<<<< HEAD
+=======
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'Token revoked'
+        ], 200);
+    }
+>>>>>>> 21ab92851d93bc9ce0e562807f27aaea50be0619
 }
