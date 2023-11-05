@@ -15,12 +15,8 @@ use App\Http\Controllers\api\v1;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 // Users Routes
-Route::apiResource('v1/users', v1\UserController::class);
+Route::post('v1/users', [v1\UserController::class, 'store']);
 
 // Computers Routes
 Route::apiResource('v1/computers', v1\ComputerController::class)
@@ -38,3 +34,10 @@ Route::get('v1/computers/{computer}/observations/{observation}', [v1\Observation
 // Categories Routes
 Route::apiResource('v1/categories', v1\CategoryController::class)
     ->except(['update', 'show']);
+
+// Auth Routes
+Route::post('v1/login', [v1\AuthController::class, 'login'])->name('api.login');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('v1/users', v1\UserController::class)->except(['store']);
+});
