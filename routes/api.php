@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1;
 
@@ -16,11 +15,8 @@ use App\Http\Controllers\api\v1;
 */
 
 // Users Routes
-<<<<<<< HEAD
-Route::post('v1/users', [v1\UserController::class, 'store']);
-=======
+
 Route::post('v1/register', [v1\UserController::class, 'store']);
->>>>>>> 21ab92851d93bc9ce0e562807f27aaea50be0619
 
 // Computers Routes
 Route::apiResource('v1/computers', v1\ComputerController::class)
@@ -30,17 +26,6 @@ Route::apiResource('v1/computers', v1\ComputerController::class)
 Route::get('v1/computers/{computer}/observations', [v1\ObservationController::class, 'indexComputerObservations']);
 Route::get('v1/computers/{computer}/observations/{observation}', [v1\ObservationController::class, 'showComputerObservation']);
 
-<<<<<<< HEAD
-// Categories Routes
-Route::apiResource('v1/categories', v1\CategoryController::class)
-    ->except(['update', 'show']);
-
-// Auth Routes
-Route::post('v1/login', [v1\AuthController::class, 'login'])->name('api.login');
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('v1/users', v1\UserController::class)->except(['store']);
-=======
 // Login
 Route::post('/v1/login', [App\Http\Controllers\api\v1\AuthController::class, 'login'])->name('api.login');
 
@@ -72,5 +57,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Logout
     Route::post('/v1/logout', [App\Http\Controllers\api\v1\AuthController::class, 'logout'])->name('api.logout');
->>>>>>> 21ab92851d93bc9ce0e562807f27aaea50be0619
 });
